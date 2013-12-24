@@ -1,0 +1,32 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btListView"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btDevicesHeader"
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:gravity="center|center_vertical|center_horizontal"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@android:color/holo_red_light"
+        android:textSize="20dp"
+        android:id="@+id/btTextView"
+        android:height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        style="@style/TextAppearance.AppCompat.Widget.Base.ActionBar.Title"
+        android:padding="15dp"/>
+</RelativeLayout>

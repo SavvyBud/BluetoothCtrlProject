@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BT Control</string>
+    <string name="action_settings">Settings</string>
+    <string name="btDevicesHeader">Paired BT devices</string>
+    <string name="arduino_ctrl_output">Arduino Controlled Outlet</string>
+    <string name="ctrl_switch">Outlet Switch</string>
+    <string name="copyright_text">SavvyBud</string>
+
+</resources>

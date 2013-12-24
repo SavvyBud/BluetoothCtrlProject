@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.savvybud.bluetoothctrl.DeviceCtrlFragment"
+    android:weightSum="1">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="@string/arduino_ctrl_output"
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:gravity="center|center_vertical|center_horizontal"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@android:color/holo_red_light"
+        android:textSize="20dp"
+        android:layout_alignBaseline="@+id/ctrl_switch"
+        android:layout_alignBottom="@+id/ctrl_switch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_weight="0"
+        android:padding="15dp"
+        android:height="50dp"
+        android:textStyle="bold"
+        style="@style/TextAppearance.AppCompat.Widget.Base.ActionBar.Title"
+        android:layout_height="wrap_content" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ctrl_switch"
+        android:id="@+id/ctrl_switch"
+        android:checked="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:height="100dp"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:background="#cccccc"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="received messages"
+        android:id="@+id/received_msgs"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.0"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/copyright_text"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
+        android:height="100dp"
+        android:padding="15dp" />
+
+</LinearLayout>
