@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls>
+    <control type="switch_ctrl" name="Outlet Switch [pin 13]" onCmd="52" offCmd="53"/>
+    <control type="switch_ctrl" name="Relay Switch [pin 12]" onCmd="49" offCmd="48"/>
+    <control type="switch_ctrl" name="LED toy [pin 8]" onCmd="33" offCmd="32"/>
+    <control type="switch_ctrl" name="LED toy [pin 7]" onCmd="29" offCmd="28"/>
+</controls>

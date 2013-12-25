@@ -1,5 +1,8 @@
 package com.savvybud.bluetoothctrl;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -7,9 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class BTDevicesFragment extends Fragment {
 
     private void openDeviceControlFragment(BluetoothDevice device){
         // Create new fragment and transaction
-        Fragment newFragment = DeviceCtrlFragment.newInstance(device);
+        ListFragment newFragment = DeviceCtrlFragment.newInstance(device);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,

@@ -1,9 +1,9 @@
 package com.savvybud.bluetoothctrl;
 
+import android.app.Fragment;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +18,7 @@ public class MainCtrlActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
+            getFragmentManager().beginTransaction()
                     .add(R.id.container, new BTDevicesFragment())
                     .commit();
         }
