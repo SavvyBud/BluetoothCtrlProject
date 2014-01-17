@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#cccccc"
+        android:textColor="#000000"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="Auto Mode Light Sensitivity"
+        android:id="@+id/textViewSensitivity"
+        android:padding="15dp"
+        android:textSize="20dp" />
+
+    <SeekBar
+        android:padding="15dp"
+        android:background="#cccccc"
+        android:textColor="#000000"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sensitivitySeekBar"
+        android:layout_gravity="center_horizontal"
+        android:max="16" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#cccccc"
+        android:textColor="#000000"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:padding="15dp"
+        android:height="75dp"
+        android:text="Auto Mode"
+        android:id="@+id/autoModeSwitch"
+        android:checked="false" />
+
+</LinearLayout>

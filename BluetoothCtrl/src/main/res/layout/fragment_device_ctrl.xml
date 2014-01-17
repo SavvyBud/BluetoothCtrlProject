@@ -6,8 +6,6 @@
     tools:context="com.savvybud.bluetoothctrl.DeviceCtrlFragment"
     android:weightSum="1">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:layout_width="match_parent"
         android:text="@string/arduino_ctrl_output"
@@ -32,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@android:id/list"></ListView>
+
 
     <TextView
         android:layout_width="match_parent"

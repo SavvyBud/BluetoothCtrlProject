@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.logging.Logger;
+
 public class MainCtrlActivity extends ActionBarActivity {
 
     @Override
@@ -24,6 +26,14 @@ public class MainCtrlActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Logger.getAnonymousLogger().warning("onBackPressed :"+getFragmentManager().getBackStackEntryCount());
+        if(getFragmentManager().getBackStackEntryCount()>0){
+            getFragmentManager().popBackStack();
+        }else
+            super.onBackPressed();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,7 +49,11 @@ public class MainCtrlActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_help:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new HelpFragment())
+                        .addToBackStack("help")
+                        .commit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -48,6 +62,7 @@ public class MainCtrlActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
+    /*
     public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
@@ -60,7 +75,7 @@ public class MainCtrlActivity extends ActionBarActivity {
             return rootView;
         }
     }
-
+*/
     private void createShortcut(){
 
         Intent shortcutIntent = new Intent(getApplicationContext(), MainCtrlActivity.class);

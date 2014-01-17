@@ -30,7 +30,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Created by gsrivastav on 12/22/13.
+ * Created by vsrivastav on 12/22/13.
  */
 public class BTDevicesFragment extends Fragment {
     BluetoothAdapter btAdapter;
@@ -63,16 +63,9 @@ public class BTDevicesFragment extends Fragment {
 
     private void openDeviceControlFragment(BluetoothDevice device){
         // Create new fragment and transaction
-        ListFragment newFragment = DeviceCtrlFragment.newInstance(device);
+        ListFragment detailsFragment = DeviceCtrlFragment.newInstance(device);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transaction.replace(R.id.container, newFragment);
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+        transaction.replace(R.id.container, detailsFragment).addToBackStack("controls").commit();
     }
 
     protected void enableBT(){

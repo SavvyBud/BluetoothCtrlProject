@@ -14,7 +14,6 @@ import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -38,7 +37,6 @@ import java.util.UUID;
  */
 public class DeviceCtrlFragment extends ListFragment implements Runnable {
 
-    //private OnFragmentInteractionListener mListener;
     private BluetoothDevice btDevice;
     private UUID applicationUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothSocket btSocket;
@@ -54,15 +52,8 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
      * @param device Parameter.
      * @return A new instance of fragment DeviceCtrlFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static DeviceCtrlFragment newInstance(BluetoothDevice device) {
         DeviceCtrlFragment fragment = new DeviceCtrlFragment();
-        /*
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        */
         fragment.btDevice = device;
         return fragment;
     }
@@ -91,41 +82,7 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //View myView =  inflater.inflate(R.layout.fragment_device_ctrl, container, false);
         View myView =  inflater.inflate(R.layout.fragment_device_ctrl, container, false);
-        /*
-        Switch s = (Switch)myView.findViewById(R.id.ctrl_switch);
-        receivedMsgs = (TextView)myView.findViewById(R.id.received_msgs);
-        s.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                //Toast.makeText(getActivity().getApplicationContext(), "Switch :"+isChecked
-                  //      , Toast.LENGTH_LONG).show();
-                if(isChecked){
-                    sendDataToPairedDevice("0");
-                }else {
-                    sendDataToPairedDevice("1");
-                }
-            }
-        });
-        ListView ctrlList = (ListView)myView.findViewById(R.id.ctrl_list);
-        ctrlList.setAdapter(mDeviceCtrlAdapter);
-        ctrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Control c = mDeviceCtrlAdapter.controls.get(position);
-                c.currentState = ! c.currentState;
-
-                Toast.makeText(getActivity().getApplicationContext(),
-                        c.name, Toast.LENGTH_LONG).show();
-
-                Log.e(TAG,"Sending message to "+c.name);
-                sendDataToPairedDevice(c.currentState ? c.onCmd : c.offCmd);
-                mDeviceCtrlAdapter.notifyDataSetChanged();
-            }
-        });
-        */
         return myView;
     }
 
@@ -188,7 +145,6 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
         {
             Log.d(TAG, "CouldNotConnectToSocket", eConnectException);
             closeSocket(btSocket);
-            return;
         }
     }
 
@@ -335,12 +291,12 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
         }
         @Override
         public int getCount() {
-            return controls.size();
+            return controls.size()+1;
         }
 
         @Override
         public Object getItem(int i) {
-            return controls.get(i);
+            return i<controls.size()?controls.get(i):null;
         }
 
         @Override
@@ -349,20 +305,37 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
         }
 
         @Override
+        public int getViewTypeCount (){
+            return 2;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position>=controls.size()?1:0;
+        }
+
+        @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             View myView;
             if(view == null){
                 LayoutInflater inflater = (LayoutInflater) getActivity().getApplicationContext()
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                myView =  inflater.inflate(
+                if(i>=controls.size()){
+                    myView =  inflater.inflate(
+                            R.layout.listview_automode_ctrl, null);
+                }else
+                    myView =  inflater.inflate(
                         R.layout.listview_switch_ctrl, null);
             } else {
                 myView = view;
             }
-            Switch s = (Switch)myView.findViewById(R.id.list_ctrl_switch);
-            Control c= controls.get(i);
-            s.setText(c.name);
-            s.setChecked(c.currentState);
+            if(i>=controls.size()) {
+            }else{
+                Switch s = (Switch)myView.findViewById(R.id.list_ctrl_switch);
+                Control c= controls.get(i);
+                s.setText(c.name);
+                s.setChecked(c.currentState);
+            }
             return myView;
         }
     }
