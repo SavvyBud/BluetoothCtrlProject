@@ -1,18 +1,21 @@
 package com.savvybud.bluetoothctrl;
 
+import android.app.Application;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.logging.Logger;
 
-public class MainCtrlActivity extends ActionBarActivity {
+public class MainCtrlActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,7 @@ public class MainCtrlActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new BTDevicesFragment())
+                    .add(R.id.container, new JoystickFragment())
                     .commit();
         }
     }
@@ -54,7 +57,25 @@ public class MainCtrlActivity extends ActionBarActivity {
                         .replace(R.id.container, new HelpFragment())
                         .addToBackStack("help")
                         .commit();
-                return true;
+                break;
+            case R.id.action_joystick:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new JoystickFragment())
+                        .addToBackStack("joystick")
+                        .commit();
+                break;
+            case R.id.action_devicectrl:
+                //TODO
+                Toast.makeText(this.getApplicationContext(),
+                        "Stubbed currently",
+                        Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_bt:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new BTDevicesFragment())
+                        .addToBackStack("bt")
+                        .commit();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

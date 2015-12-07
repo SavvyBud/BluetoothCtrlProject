@@ -27,6 +27,6 @@
         android:layout_alignParentTop="true"
         android:textStyle="bold"
         android:layout_centerInParent="true"
-        style="@style/TextAppearance.AppCompat.Widget.Base.ActionBar.Title"
+        style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:padding="15dp"/>
 </RelativeLayout>

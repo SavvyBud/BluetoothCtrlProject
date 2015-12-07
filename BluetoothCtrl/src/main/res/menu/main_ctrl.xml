@@ -3,9 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainCtrlActivity" >
 
+    <item android:id="@+id/action_bt"
+        android:title="BT"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"/>
+
     <item android:id="@+id/action_help"
         android:title="Help"
         android:orderInCategory="101"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_devicectrl"
+        android:title="Arduino Ctrl"
+        android:orderInCategory="102"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_joystick"
+        android:title="Joystick"
+        android:orderInCategory="103"
         app:showAsAction="ifRoom"/>
 
 </menu>
