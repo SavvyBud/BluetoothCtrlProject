@@ -59,6 +59,7 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
     }
 
     public DeviceCtrlFragment() {
+        btDevice = BTDeviceManager.getInstance().getBtDevice();
     }
 
     @Override
@@ -186,12 +187,14 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
             //Toast.makeText(getActivity().getApplicationContext(),message,Toast.LENGTH_LONG).show();
         }
     }
+
     private class BluetoothSocketListener implements Runnable {
 
         private BluetoothSocket socket;
         private TextView textView;
         private Handler handler;
-    public BluetoothSocketListener(BluetoothSocket socket,
+
+        public BluetoothSocketListener(BluetoothSocket socket,
                                    Handler handler, TextView textView) {
         this.socket = socket;
         this.textView = textView;

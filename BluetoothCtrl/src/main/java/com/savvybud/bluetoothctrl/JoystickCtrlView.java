@@ -9,7 +9,11 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.logging.Logger;
 
 /**
  * TODO: document your custom view class.
@@ -25,6 +29,9 @@ public class JoystickCtrlView extends View {
     private final int paintColor = Color.BLACK;
 
     private Paint mTextPaint;
+
+    private GestureDetector mDetector;
+    Logger log = Logger.getAnonymousLogger();
 
     public JoystickCtrlView(Context context) {
         super(context);
@@ -84,6 +91,7 @@ public class JoystickCtrlView extends View {
 
         // Update TextPaint and text measurements from attributes
         invalidateTextPaintAndMeasurements();
+        mDetector = new GestureDetector(JoystickCtrlView.this.getContext(), new mListener());
     }
 
 
@@ -116,9 +124,47 @@ public class JoystickCtrlView extends View {
         // Whatever the width ends up being, ask for a height that would let the pie
         // get as big as it can
         int minh = MeasureSpec.getSize(w) + getPaddingBottom() + getPaddingTop();
-        int h = resolveSizeAndState(MeasureSpec.getSize(w), heightMeasureSpec, 0);
+        int h = resolveSizeAndState(minh, heightMeasureSpec, 0);
 
         setMeasuredDimension(w, h);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        boolean result = mDetector.onTouchEvent(event);
+        if (!result) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                result = true;
+                touching = false;
+                invalidate();
+            }
+        }
+        if(touching){
+            if(event.getAction() == MotionEvent.ACTION_MOVE){
+                x = event.getX();
+                y = event.getY();
+                log.info("X: "+x+" Y: "+y);
+                this.invalidate();
+            }
+        }
+        return result;
+    }
+
+    float x;
+    float y;
+    boolean touching = false;
+
+    class mListener extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            touching = true;
+            x = e.getX();
+            y = e.getY();
+            return true;
+        }
+
     }
 
     @Override
@@ -161,6 +207,12 @@ public class JoystickCtrlView extends View {
         mDrawPaint.setColor(Color.parseColor("#CD5C5C"));
         canvas.drawCircle(r.centerX(), r.centerY(), 20, mDrawPaint);
 
+        if (touching){
+            mDrawPaint.setStrokeWidth(4);
+            //mDrawPaint.setStyle(Paint.Style.STROKE);
+            canvas.drawLine(r.centerX(), r.centerY(), x,y, mDrawPaint);
+            canvas.drawCircle(x, y, 50, mDrawPaint);
+        }
 
         /*
         // Draw the text.
@@ -255,4 +307,5 @@ public class JoystickCtrlView extends View {
     public void setExampleDrawable(Drawable exampleDrawable) {
         mExampleDrawable = exampleDrawable;
     }
+
 }

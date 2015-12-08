@@ -17,16 +17,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TwoLineListItem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -54,19 +50,22 @@ public class BTDevicesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(getActivity().getApplicationContext(),
-                        "Opening Control for "+btDataAdapter.devices.get(position).getName(), Toast.LENGTH_LONG).show();
-                openDeviceControlFragment(btDataAdapter.devices.get(position));
+                        "Connecting to "+btDataAdapter.devices.get(position).getName(), Toast.LENGTH_LONG).show();
+                BTDeviceManager.getInstance().setBtDevice(btDataAdapter.devices.get(position));
+                //openDeviceControlFragment(btDataAdapter.devices.get(position));
             }
         });
         return rootView;
     }
 
+    /*
     private void openDeviceControlFragment(BluetoothDevice device){
         // Create new fragment and transaction
         ListFragment detailsFragment = DeviceCtrlFragment.newInstance(device);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.container, detailsFragment).addToBackStack("controls").commit();
     }
+    */
 
     protected void enableBT(){
         //Register the BroadcastReceiver
@@ -171,7 +170,7 @@ public class BTDevicesFragment extends Fragment {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 myView =  inflater.inflate(
-                        R.layout.device_ctrl, null);
+                        R.layout.fragment_btdevice_item, null);
             } else {
                 myView = convertView;
             }

@@ -55,25 +55,25 @@ public class MainCtrlActivity extends AppCompatActivity {
             case R.id.action_help:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new HelpFragment())
-                        .addToBackStack("help")
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.action_joystick:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new JoystickFragment())
-                        .addToBackStack("joystick")
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.action_devicectrl:
-                //TODO
-                Toast.makeText(this.getApplicationContext(),
-                        "Stubbed currently",
-                        Toast.LENGTH_SHORT).show();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new DeviceCtrlFragment())
+                        .addToBackStack("joystick")
+                        .commit();
                 break;
             case R.id.action_bt:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new BTDevicesFragment())
-                        .addToBackStack("bt")
+                        .addToBackStack(null)
                         .commit();
                 break;
         }

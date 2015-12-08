@@ -8,19 +8,20 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/action_help"
-        android:title="Help"
-        android:orderInCategory="101"
-        app:showAsAction="ifRoom"/>
-
     <item android:id="@+id/action_devicectrl"
         android:title="Arduino Ctrl"
-        android:orderInCategory="102"
+        android:orderInCategory="101"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/action_joystick"
         android:title="Joystick"
+        android:orderInCategory="102"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_help"
+        android:title="Help"
         android:orderInCategory="103"
         app:showAsAction="ifRoom"/>
+
 
 </menu>

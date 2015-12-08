@@ -97,7 +97,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:src="@android:drawable/ic_menu_compass"
-                    android:text="T"
+                    android:text="U"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_weight="1" />
 
@@ -161,7 +161,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:src="@android:drawable/ic_menu_compass"
-                    android:text="B"
+                    android:text="D"
                     android:layout_gravity="center_horizontal|top"
                     android:layout_weight="1" />
                 <Space
