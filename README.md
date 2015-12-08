@@ -19,6 +19,5 @@ In second Joystick mode, the coordinates of a virtual joystick is sent to Arduin
 help us build a Arduino controlled robot. Just like a joystick, there is additionally 4 buttons.
 The intent of these 4 buttons is to control 2 servo motors.
 
-<div align="center">
+
 ![joystick](joystick.png)
-</div>
