@@ -13,6 +13,7 @@ There are two different UI of communicating with Arduino:
 In Arduino Ctrl, we simply send a byte of data to Arduino. This may be a simplistic
 way to send commands to Arduino.
 
+![ctrl](arduino_ctrl.png)
 
 ## Joystick Mode
 In second Joystick mode, the coordinates of a virtual joystick is sent to Arduino. This will
