@@ -211,7 +211,7 @@ public class JoystickCtrlView extends View {
             mDrawPaint.setStrokeWidth(4);
             //mDrawPaint.setStyle(Paint.Style.STROKE);
             canvas.drawLine(r.centerX(), r.centerY(), x,y, mDrawPaint);
-            canvas.drawCircle(x, y, 50, mDrawPaint);
+            canvas.drawCircle(x, y, 75, mDrawPaint);
         }
 
         /*
