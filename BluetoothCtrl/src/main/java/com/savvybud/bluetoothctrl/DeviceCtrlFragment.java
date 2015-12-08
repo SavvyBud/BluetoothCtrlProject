@@ -31,35 +31,17 @@ import java.util.UUID;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
- * Use the {@link DeviceCtrlFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
  */
-public class DeviceCtrlFragment extends ListFragment implements Runnable {
+public class DeviceCtrlFragment extends ListFragment {
 
-    private BluetoothDevice btDevice;
-    private UUID applicationUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    private BluetoothSocket btSocket;
-    OutputStream mmOutStream;
     public static final String TAG = "BT";
-    Thread mBlutoothConnectThread;
-    TextView receivedMsgs;
     DeviceCtrlAdapter mDeviceCtrlAdapter;
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param device Parameter.
-     * @return A new instance of fragment DeviceCtrlFragment.
-     */
-    public static DeviceCtrlFragment newInstance(BluetoothDevice device) {
-        DeviceCtrlFragment fragment = new DeviceCtrlFragment();
-        fragment.btDevice = device;
-        return fragment;
-    }
+    BTDeviceManager btDeviceManager;
 
     public DeviceCtrlFragment() {
-        btDevice = BTDeviceManager.getInstance().getBtDevice();
+        btDeviceManager = BTDeviceManager.getInstance();
     }
 
     @Override
@@ -76,8 +58,6 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        mBlutoothConnectThread = new Thread(this);
-        mBlutoothConnectThread.start();
     }
 
     @Override
@@ -94,142 +74,9 @@ public class DeviceCtrlFragment extends ListFragment implements Runnable {
         Toast.makeText(getActivity().getApplicationContext(),
                 c.name, Toast.LENGTH_LONG).show();
         Log.e(TAG,"Sending message to "+c.name);
-        sendDataToPairedDevice(c.currentState ? c.onCmd : c.offCmd);
+
+        btDeviceManager.sendDataToPairedDevice(c.currentState ? c.onCmd : c.offCmd);
         mDeviceCtrlAdapter.notifyDataSetChanged();
-    }
-
-    private void sendDataToPairedDevice(int message){
-        Log.i(TAG,"Sending: "+message);
-        try {
-            if(btSocket != null && btSocket.isConnected()){
-                mmOutStream = btSocket.getOutputStream();
-                mmOutStream.write((byte)message);
-            }else{
-                Log.e(TAG, "socket not connected");
-            }
-        } catch (IOException e) {
-            Log.e("BT", "Exception during write", e);
-        }
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        if(mBlutoothConnectThread != null){
-            mBlutoothConnectThread.interrupt();
-            closeSocket(btSocket);
-        }
-    }
-
-    public void run()
-    {
-        try
-        {
-            btSocket = btDevice.createRfcommSocketToServiceRecord(applicationUUID);
-            BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-            btSocket.connect();
-
-            mHandler.sendEmptyMessage(0);
-            /*
-            InputStream is = btSocket.getInputStream();
-            BufferedReader r = new BufferedReader(new InputStreamReader(btSocket.getInputStream()));
-            String line;
-            while ((line = r.readLine()) != null) {
-                receivedMsgs.setText(line);
-            }
-            */
-            BluetoothSocketListener bsl = new BluetoothSocketListener(btSocket, mHandler,receivedMsgs);
-            Thread messageListener = new Thread(bsl);
-            messageListener.start();
-        }
-        catch (IOException eConnectException)
-        {
-            Log.d(TAG, "CouldNotConnectToSocket", eConnectException);
-            closeSocket(btSocket);
-        }
-    }
-
-    private void closeSocket(BluetoothSocket nOpenSocket)
-    {
-        try
-        {
-            btSocket.close();
-            Log.d(TAG, "SocketClosed");
-        }
-        catch (IOException ex)
-        {
-            Log.d(TAG, "CouldNotCloseSocket");
-        }
-    }
-
-
-    private Handler mHandler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            //mBluetoothConnectProgressDialog.dismiss();
-            Toast.makeText(getActivity(), "Device Connected", 5000).show();
-        }
-    };
-
-    private class MessagePoster implements Runnable {
-        private TextView textView;
-        private String message;
-
-        public MessagePoster(TextView textView, String message) {
-            this.textView = textView;
-            this.message = message;
-        }
-
-        public void run() {
-            //textView.setText("L"+message);
-            //Toast.makeText(getActivity().getApplicationContext(),message,Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private class BluetoothSocketListener implements Runnable {
-
-        private BluetoothSocket socket;
-        private TextView textView;
-        private Handler handler;
-
-        public BluetoothSocketListener(BluetoothSocket socket,
-                                   Handler handler, TextView textView) {
-        this.socket = socket;
-        this.textView = textView;
-        this.handler = handler;
-    }
-
-    public void run() {
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
-        try {
-            InputStream instream = socket.getInputStream();
-            int bytesRead = -1;
-            String message = "";
-            StringBuilder sb = new StringBuilder();
-            while (true) {
-                message = "";
-                bytesRead = instream.read(buffer);
-                if (bytesRead != -1) {
-                    /*
-                    while ((bytesRead==bufferSize)&&(buffer[bufferSize-1] != 0)) {
-                        message = message + new String(buffer, 0, bytesRead);
-                        bytesRead = instream.read(buffer);
-                    }
-                    message = message + new String(buffer, 0, bytesRead - 1);
-                    */
-                    sb.append(new String(buffer,0,bytesRead-1));
-                    handler.post(new MessagePoster(textView, sb.toString()));
-                    socket.getInputStream();
-                    sb.setLength(0);
-                }
-            }
-        } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
-        }
-    }
     }
 
     private enum CtrlType {

@@ -58,15 +58,6 @@ public class BTDevicesFragment extends Fragment {
         return rootView;
     }
 
-    /*
-    private void openDeviceControlFragment(BluetoothDevice device){
-        // Create new fragment and transaction
-        ListFragment detailsFragment = DeviceCtrlFragment.newInstance(device);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, detailsFragment).addToBackStack("controls").commit();
-    }
-    */
-
     protected void enableBT(){
         //Register the BroadcastReceiver
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
