@@ -21,7 +21,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Joystick"
-            android:id="@+id/button"
+            android:id="@+id/joystick"
             android:layout_gravity="center_vertical"
             app:exampleColor="#33b5e5"
             app:exampleDimension="24sp"

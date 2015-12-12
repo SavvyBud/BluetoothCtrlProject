@@ -33,9 +33,16 @@ public class JoystickCtrlView extends View {
     private GestureDetector mDetector;
     Logger log = Logger.getAnonymousLogger();
 
+    JoystickCtrlViewListener listener;
+    private int mRadius;
+
     public JoystickCtrlView(Context context) {
         super(context);
         init(null, 0);
+    }
+
+    public void registerListener(JoystickCtrlViewListener l){
+        listener = l;
     }
 
     private void setupPaint() {
@@ -137,6 +144,7 @@ public class JoystickCtrlView extends View {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 result = true;
                 touching = false;
+                listener.release();
                 invalidate();
             }
         }
@@ -145,6 +153,7 @@ public class JoystickCtrlView extends View {
                 x = event.getX();
                 y = event.getY();
                 log.info("X: "+x+" Y: "+y);
+                listener.touching(mRadius*2, x,y);
                 this.invalidate();
             }
         }
@@ -185,6 +194,7 @@ public class JoystickCtrlView extends View {
         int h = r.height()-paddingTop-paddingBottom;
         int w = r.width()-paddingLeft-paddingRight;
         int radius = Math.min(h,w)/2;
+        mRadius = radius;
 
         System.out.println("Rect: " + r.toShortString());
         mDrawPaint.setStrokeWidth(5);
